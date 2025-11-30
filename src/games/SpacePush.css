@@ -1,0 +1,280 @@
+.game-container {
+  min-height: 100vh;
+  background-color: #000000;
+  padding: 20px;
+  color: #ffffff;
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.game-content {
+  display: grid;
+  grid-template-columns: 280px 1fr 280px;
+  grid-template-rows: auto auto;
+  gap: 20px;
+  align-items: start;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+.game-info {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+}
+
+.game-stats {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stat {
+  font-size: 20px;
+  color: #60a5fa;
+}
+
+.high-score {
+  font-size: 18px;
+  color: #fbbf24;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: rgba(251, 191, 36, 0.1);
+  border: 2px solid #fbbf24;
+  border-radius: 8px;
+}
+
+.game-result {
+  margin-top: 15px;
+  font-size: 18px;
+  color: #10b981;
+  text-align: center;
+  padding: 15px;
+  background-color: rgba(16, 185, 129, 0.1);
+  border: 2px solid #10b981;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.game-canvas-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: rgba(99, 102, 241, 0.05);
+  border: 2px solid rgba(99, 102, 241, 0.3);
+  border-radius: 16px;
+}
+
+.game-canvas {
+  border: 3px solid #6366f1;
+  background-color: #0a0a1a;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+  border-radius: 8px;
+}
+
+.game-controls {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+}
+
+.control-group {
+  margin-bottom: 20px;
+}
+
+.pixel-slider {
+  width: 100%;
+  margin-top: 10px;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+  border: 2px solid #6366f1;
+  border-radius: 4px;
+}
+
+.pixel-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #6366f1;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+}
+
+.pixel-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #6366f1;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+}
+
+.control-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.control-buttons .pixel-button {
+  width: 100%;
+}
+
+/* Academic Hint Wrapper - Positioned below canvas */
+.academic-hint-wrapper {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Academic Hint Styles */
+.academic-hint-container {
+  border: 2px solid #a78bfa;
+  background-color: rgba(168, 85, 247, 0.05);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.hint-tab {
+  width: 100%;
+  padding: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  letter-spacing: 1px;
+}
+
+.hint-tab:hover {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+}
+
+.hint-tab.active {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+}
+
+.hint-content {
+  padding: 24px;
+  background-color: rgba(168, 85, 247, 0.05);
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  max-width: 100%;
+}
+
+.hint-content h3 {
+  color: #a78bfa;
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.hint-section {
+  margin-bottom: 20px;
+  padding: 16px;
+  background-color: rgba(168, 85, 247, 0.08);
+  border-left: 4px solid #a78bfa;
+  border-radius: 8px;
+}
+
+.hint-section h4 {
+  color: #c4b5fd;
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.hint-section p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+
+.hint-section p strong {
+  color: #e9d5ff;
+  font-weight: 700;
+}
+
+.hint-section .formula {
+  color: #fbbf24;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin: 12px 0;
+  padding: 12px;
+  background-color: rgba(251, 191, 36, 0.1);
+  border: 2px solid #fbbf24;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+}
+
+.physics-info {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: rgba(99, 102, 241, 0.1);
+  border: 2px solid #6366f1;
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.physics-info p {
+  margin: 5px 0;
+  color: #ffffff;
+}
+
+@media (max-width: 1600px) {
+  .game-content {
+    grid-template-columns: 250px 1fr 250px;
+  }
+
+  .game-canvas {
+    width: 100%;
+    max-width: 1200px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .game-content {
+    grid-template-columns: 1fr;
+  }
+
+  .game-canvas {
+    width: 100%;
+    max-width: 1000px;
+  }
+
+  .game-info,
+  .game-controls {
+    max-width: 100%;
+  }
+}
