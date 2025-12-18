@@ -19,15 +19,15 @@ export const ScoreProvider = ({ children }) => {
   useEffect(() => {
     // Load scores from Backend (specifically Acid Reflex for now)
     if (user && user.username) {
+      // Fetch Acid Reflex Score
       fetch(`${API_URL}/api/scores/acid-reflex/${user.username}`)
         .then(res => res.json())
         .then(data => {
           if (data && data.score) {
-            // Store in state matching the key format: gameId_metric
             setScores(prev => ({ ...prev, 'acid-reflex_time': data.score }));
           }
         })
-        .catch(err => console.error('Failed to fetch score:', err));
+        .catch(err => console.error('Failed to fetch acid-reflex score:', err));
     }
   }, [user]);
 
