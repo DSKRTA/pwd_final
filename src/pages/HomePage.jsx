@@ -34,8 +34,7 @@ const HomePage = () => {
       subject: 'Chemistry',
       description:
         'Speed Run Edition: Identify the dominant ion before time runs out! Acid vs Base.',
-      imageSuggestion:
-        'A colorful “potion mixing” chemistry game interface.',
+      image: '/acid.png'
     }
   ];
 
