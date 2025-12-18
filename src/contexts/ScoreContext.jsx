@@ -14,7 +14,7 @@ export const useScore = () => {
 export const ScoreProvider = ({ children }) => {
   const { user } = useAuth();
   const [scores, setScores] = useState({});
-  const API_URL = 'http://localhost:3001'; // Adjust if needed
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
   useEffect(() => {
     // Load scores from Backend (specifically Acid Reflex for now)
