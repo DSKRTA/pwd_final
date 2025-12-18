@@ -81,17 +81,36 @@ const HomePage = () => {
     logout();
   };
 
-  const handleFeedbackSubmit = (e) => {
+  const handleFeedbackSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Send to database
-    console.log('Feedback submitted:', { name: feedbackName, email: feedbackEmail, message: feedbackMessage });
-    setFeedbackSubmitted(true);
-    setTimeout(() => {
-      setFeedbackName('');
-      setFeedbackEmail('');
-      setFeedbackMessage('');
-      setFeedbackSubmitted(false);
-    }, 3000);
+
+    try {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+      const res = await fetch(`${API_URL}/api/feedback/submit`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: feedbackName,
+          email: feedbackEmail,
+          feedback: feedbackMessage
+        })
+      });
+
+      if (res.ok) {
+        console.log('Feedback submitted:', { name: feedbackName, email: feedbackEmail, message: feedbackMessage });
+        setFeedbackSubmitted(true);
+        setTimeout(() => {
+          setFeedbackName('');
+          setFeedbackEmail('');
+          setFeedbackMessage('');
+          setFeedbackSubmitted(false);
+        }, 3000);
+      } else {
+        console.error('Failed to submit feedback');
+      }
+    } catch (error) {
+      console.error('Error submitting feedback:', error);
+    }
   };
 
   const handlePlayGame = (gameId) => {

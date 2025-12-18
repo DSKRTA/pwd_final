@@ -6,7 +6,7 @@ import './LoginPage.css';
 const LoginPage = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
@@ -14,13 +14,13 @@ const LoginPage = () => {
     e.preventDefault();
     setError('');
 
-    if (!username.trim() || !password.trim()) {
-      setError('Please enter both username and password');
+    if (!email.trim() || !password.trim()) {
+      setError('Please enter both email and password');
       return;
     }
 
     try {
-      await login(username, password);
+      await login(email, password);
       // If successful (no error thrown), navigate
       navigate('/');
     } catch (err) {
@@ -39,13 +39,13 @@ const LoginPage = () => {
         <h1 className="pixel-title login-title">LOGIN</h1>
         <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">
-            <label className="pixel-label">USERNAME:</label>
+            <label className="pixel-label">EMAIL:</label>
             <input
-              type="text"
+              type="email"
               className="pixel-input"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Enter username"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter email"
             />
           </div>
           <div className="form-group">
