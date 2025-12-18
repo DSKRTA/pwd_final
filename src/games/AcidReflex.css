@@ -1,0 +1,422 @@
+.game2-container {
+    min-height: 100vh;
+    background-color: #000000;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+}
+
+/* Header V2 - Standardized */
+.game2-header {
+    width: 100%;
+    /* Keep padding/margin consistent with SpacePush if desired, or AARecipe */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Thicker header as requested */
+    padding: 20px 20px;
+    margin-bottom: 20px;
+    /* Purple line as requested */
+    border-bottom: 3px solid #a78bfa;
+}
+
+/* ... existing styles ... */
+
+/* Embedded Controls */
+.embedded-controls {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    width: 100%;
+    /* Shortened length as requested */
+    max-width: 450px;
+    margin-top: 20px;
+}
+
+.pixel-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 32px;
+    color: #a78bfa;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+/* Sidebar Timer */
+.sidebar-timer {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    /* margin-bottom removed to reduce gap (parent has gap:30px) */
+    margin-bottom: 0;
+}
+
+.timer-label {
+    display: block;
+    font-size: 14px;
+    color: #a78bfa;
+    margin-bottom: 5px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.timer-display {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 32px;
+    color: #ffffff;
+    /* Changed to white */
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* Main Layout: Left Sidebar + Center Game */
+.game2-main-layout {
+    display: flex;
+    flex: 1;
+    gap: 20px;
+    width: 100%;
+    /* Reduced size as requested (was 1400px) */
+    max-width: 1200px;
+    margin: 0 auto;
+    height: calc(100vh - 140px);
+    /* Fill remaining space */
+}
+
+/* Left Sidebar */
+.info-sidebar {
+    width: 320px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    overflow-y: auto;
+}
+
+.pixel-subtitle {
+    font-size: 20px;
+    color: #60a5fa;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+}
+
+.info-section h3 {
+    font-size: 16px;
+    color: #a78bfa;
+    margin-bottom: 12px;
+}
+
+.rules-list {
+    list-style: none;
+    padding: 0;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.rules-list li {
+    margin-bottom: 8px;
+}
+
+.ion-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+.info-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.info-icon.acid {
+    background: rgba(96, 165, 250, 0.8);
+    border-radius: 50%;
+    border: 1px solid #60a5fa;
+}
+
+.info-icon.base {
+    background: rgba(248, 113, 113, 0.8);
+    border-radius: 4px;
+    border: 1px solid #f87171;
+}
+
+.stats-section {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.highlight {
+    color: #fff;
+}
+
+.gold-text {
+    color: #fbbf24;
+}
+
+.blue-text {
+    color: #60a5fa;
+    font-weight: bold;
+}
+
+.red-text {
+    color: #f87171;
+    font-weight: bold;
+}
+
+
+/* Center: Game Screen Wrapper */
+.game-screen-wrapper {
+    flex: 1;
+    position: relative;
+    background: radial-gradient(circle at center, #1a1a2e 0%, #000 100%);
+    border: 2px solid rgba(167, 139, 250, 0.3);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Center Vertically */
+    align-items: center;
+}
+
+.game-content-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    /* Space Beaker and Controls */
+    align-items: center;
+    padding: 20px;
+    transition: filter 0.3s;
+}
+
+.blur-content {
+    filter: blur(8px);
+}
+
+/* Beaker */
+.beaker-container {
+    /* Increased size as requested further (was 400px -> 480px -> 550px) */
+    width: 550px;
+    height: 550px;
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    position: relative;
+    background: radial-gradient(circle, rgba(20, 20, 40, 0.8) 0%, rgba(0, 0, 0, 0.95) 100%);
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(99, 102, 241, 0.1);
+}
+
+.beaker {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.particle {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    font-weight: bold;
+    color: white;
+    user-select: none;
+    transition: transform 0.2s;
+}
+
+.particle.acid {
+    width: 32px;
+    height: 32px;
+    background: rgba(96, 165, 250, 0.9);
+    border: 2px solid #60a5fa;
+    border-radius: 50%;
+}
+
+.particle.base {
+    width: 36px;
+    height: 36px;
+    background: rgba(248, 113, 113, 0.9);
+    border: 2px solid #f87171;
+    border-radius: 4px;
+}
+
+.particle.moving {
+    animation-name: float;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes float {
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(var(--move-x), var(--move-y));
+    }
+}
+
+/* Embedded Controls */
+.embedded-controls {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    width: 100%;
+    max-width: 450px;
+    /* Reduced from 600px */
+    margin-top: 20px;
+}
+
+.control-button {
+    flex: 1;
+    height: 70px;
+    font-size: 24px;
+    font-weight: 800;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.1s;
+    text-transform: uppercase;
+    color: white;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+.control-button:active {
+    transform: translateY(4px);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+}
+
+.acid-btn {
+    background: #3b82f6;
+    border-bottom: 4px solid #1d4ed8;
+}
+
+.acid-btn:hover:not(:disabled) {
+    background: #60a5fa;
+}
+
+.base-btn {
+    background: #ef4444;
+    border-bottom: 4px solid #b91c1c;
+}
+
+.base-btn:hover:not(:disabled) {
+    background: #f87171;
+}
+
+.vs-badge {
+    font-size: 20px;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+
+/* SCOPED OVERLAYS */
+.scoped-overlay {
+    position: absolute;
+    z-index: 50;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.overlay-title {
+    font-size: 48px;
+    font-weight: 900;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.overlay-title.error {
+    color: #f87171;
+}
+
+.overlay-title.success {
+    color: #4f42ff;
+}
+
+.overlay-subtitle {
+    font-size: 20px;
+    color: #a78bfa;
+}
+
+/* Scoped Flash */
+.scoped-flash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 40;
+}
+
+.scoped-flash.green {
+    background: rgba(16, 185, 129, 0.2);
+}
+
+.scoped-flash.red {
+    background: rgba(239, 68, 68, 0.2);
+}
+
+/* Shake on Wrapper only */
+.shake .game-screen-wrapper {
+    animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+/* Shorter Start/Action Buttons in Overlay */
+.scoped-overlay .pixel-button {
+    width: auto;
+    min-width: 200px;
+    max-width: 300px;
+    padding: 15px 40px;
+}

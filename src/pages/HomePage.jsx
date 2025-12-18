@@ -21,19 +21,19 @@ const HomePage = () => {
       image: "/push.png"
     },
     {
-      id: 'Game1',
-      title: 'Game1',
-      subject: 'Physics',
+      id: 'aa-recipe',
+      title: 'AA Recipe',
+      subject: 'Biology',
       description:
-        'See mechanical energy in action. Build a coaster that balances potential and kinetic energy to finish the track.',
-      imageSuggestion: 'A graphic of the rollercoaster builder game.',
+        'AA stands for Amino Acids. Connect AAs to make your own unique protein!',
+      image: '/aa.png'
     },
     {
-      id: 'Game2',
-      title: 'Game2',
+      id: 'acid-reflex',
+      title: 'Acid Reflex',
       subject: 'Chemistry',
       description:
-        'Master neutralization reactions by mixing acids and bases before the beakers overflow.',
+        'Speed Run Edition: Identify the dominant ion before time runs out! Acid vs Base.',
       imageSuggestion:
         'A colorful “potion mixing” chemistry game interface.',
     }
@@ -41,7 +41,7 @@ const HomePage = () => {
 
   const advantagePoints = [
     {
-      title: 'Finally Understand Why It Works',
+      title: 'Understand Why It Works',
       description:
         'Each game is built around a core scientific principle, so you gain a deep, intuitive understanding—not just flashcard knowledge.',
       icon: '01',
@@ -96,7 +96,13 @@ const HomePage = () => {
   };
 
   const handlePlayGame = (gameId) => {
-    navigate(`/games/${gameId}`);
+    if (gameId === 'force-motion') {
+      navigate('/games/space-push');
+    } else if (gameId === 'protein-builder') {
+      navigate('/games/protein-builder');
+    } else {
+      navigate(`/games/${gameId}`);
+    }
   };
 
   return (

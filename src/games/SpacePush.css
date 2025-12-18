@@ -12,19 +12,27 @@
   margin-bottom: 20px;
   flex-wrap: wrap;
   gap: 15px;
+  position: relative;
+}
+
+.back-button {
+  padding: 0.6rem 1.2rem !important;
+  font-size: 1rem !important;
+  min-width: auto !important;
+  width: auto !important;
 }
 
 .game-content {
   display: grid;
-  grid-template-columns: 280px 1fr 280px;
+  grid-template-columns: 400px 1fr 280px;
   grid-template-rows: auto auto;
   gap: 20px;
   align-items: start;
-  max-width: 1800px;
   margin: 0 auto;
 }
 
 .game-info {
+  width: 400px;
   padding: 20px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -89,6 +97,7 @@
 }
 
 .game-controls {
+  width: 280px;
   padding: 20px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -142,12 +151,10 @@
   width: 100%;
 }
 
-/* Academic Hint Wrapper - Positioned below canvas */
+/* Academic Hint Wrapper - Positioned below entire game */
 .academic-hint-wrapper {
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
-  width: 100%;
-  max-width: 1200px;
+  width: 800px;
+  margin: 20px auto;
 }
 
 /* Academic Hint Styles */
@@ -156,6 +163,7 @@
   background-color: rgba(168, 85, 247, 0.05);
   border-radius: 12px;
   overflow: hidden;
+  width: 100%;
 }
 
 .hint-tab {

@@ -31,10 +31,10 @@ const SpacePush = () => {
   const [gameState, setGameState] = useState('ready'); // ready, pushing, finished
   // Astronauts start at opposite ends - left and right edges
   // Calculate initial sizes based on mass (both start at 50kg by default)
-  const initialWidth1 = 80 + (mass1 / 10) * 8;
-  const initialHeight1 = 120 + (mass1 / 10) * 8;
-  const initialWidth2 = 80 + (mass2 / 10) * 8;
-  const initialHeight2 = 120 + (mass2 / 10) * 8;
+  const initialWidth1 = 88 + (mass1 / 10) * 8.8;
+  const initialHeight1 = 132 + (mass1 / 10) * 8.8;
+  const initialWidth2 = 88 + (mass2 / 10) * 8.8;
+  const initialHeight2 = 132 + (mass2 / 10) * 8.8;
   const [astronaut1, setAstronaut1] = useState({ x: initialWidth1 / 2, y: 300, vx: 0, width: initialWidth1, height: initialHeight1 });
   const [astronaut2, setAstronaut2] = useState({ x: CANVAS_WIDTH - initialWidth2 / 2, y: 300, vx: 0, width: initialWidth2, height: initialHeight2 });
   const [distance1, setDistance1] = useState(0);
@@ -337,12 +337,12 @@ const SpacePush = () => {
     if (animationFrameRef.current) {
       cancelAnimationFrame(animationFrameRef.current);
     }
-    // Reset to initial positions - astronauts start at opposite ends
-    const initialWidth1 = 80 + (mass1 / 10) * 8;
-    const initialHeight1 = 120 + (mass1 / 10) * 8;
-    const initialWidth2 = 80 + (mass2 / 10) * 8;
-    const initialHeight2 = 120 + (mass2 / 10) * 8;
-    // Astronaut 1 at left end, Astronaut 2 at right end
+    // Reset to initial positions - astronauts at opposite edges
+    const initialWidth1 = 88 + (mass1 / 10) * 8.8;
+    const initialHeight1 = 132 + (mass1 / 10) * 8.8;
+    const initialWidth2 = 88 + (mass2 / 10) * 8.8;
+    const initialHeight2 = 132 + (mass2 / 10) * 8.8;
+    // Astronaut 1 at left edge, Astronaut 2 at right edge
     setAstronaut1({ x: initialWidth1 / 2, y: 300, vx: 0, width: initialWidth1, height: initialHeight1 });
     setAstronaut2({ x: CANVAS_WIDTH - initialWidth2 / 2, y: 300, vx: 0, width: initialWidth2, height: initialHeight2 });
     setDistance1(0);
@@ -363,7 +363,7 @@ const SpacePush = () => {
     <div className="game-container">
       <div className="game-header">
         <h1 className="pixel-title">SPACE PUSH</h1>
-        <button className="pixel-button pixel-button-secondary" onClick={() => navigate('/')}>
+        <button className="pixel-button pixel-button-secondary back-button" onClick={() => navigate('/')}>
           BACK TO MAIN
         </button>
       </div>
@@ -383,34 +383,6 @@ const SpacePush = () => {
           />
         </div>
 
-        {/* Academic Hint Section - Below Canvas */}
-        <div className="academic-hint-wrapper">
-          <div className="academic-hint-container">
-            <button
-              className={`hint-tab ${showHint ? 'active' : ''}`}
-              onClick={() => setShowHint(!showHint)}
-            >
-              ACADEMIC HINT
-            </button>
-            {showHint && (
-              <div className="hint-content">
-                <h3 className="pixel-subtitle">Scientific Concepts</h3>
-                <div className="hint-section">
-                  <h4>🚀 F=ma </h4>
-                  <p><strong>The Key Concept:</strong> Force is Determined by Mass and Acceleration.</p>
-                  <p><strong>What This Means:</strong> Higher Mass and Acceleration results in Bigger Force.</p>
-                  <p><strong>In This Simulation:</strong> You control each astronaut's acceleration and mass directly.</p>
-                </div>
-                <div className="hint-section">
-                  <h4>🌌 Zero Gravity Motion</h4>
-                  <p><strong>Constant Velocity:</strong> After the initial push, there's no friction or gravity to slow them down.</p>
-                  <p><strong>Newton's First Law:</strong> Objects in motion stay in motion with constant velocity unless acted upon by an external force.</p>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-
         <div className="game-controls pixel-panel">
           <h3 className="pixel-subtitle">CONTROLS</h3>
           <div className="control-group">
@@ -424,7 +396,7 @@ const SpacePush = () => {
               onChange={(e) => {
                 setMass1(Number(e.target.value));
                 if (gameState === 'ready') {
-                  setAstronaut1(prev => ({ ...prev, width: 80 + (Number(e.target.value) / 10) * 8, height: 120 + (Number(e.target.value) / 10) * 8 }));
+                  setAstronaut1(prev => ({ ...prev, width: 88 + (Number(e.target.value) / 10) * 8.8, height: 132 + (Number(e.target.value) / 10) * 8.8 }));
                 }
               }}
               disabled={gameState === 'pushing' || gameState === 'finished'}
@@ -442,7 +414,7 @@ const SpacePush = () => {
               onChange={(e) => {
                 setMass2(Number(e.target.value));
                 if (gameState === 'ready') {
-                  setAstronaut2(prev => ({ ...prev, width: 80 + (Number(e.target.value) / 10) * 8, height: 120 + (Number(e.target.value) / 10) * 8 }));
+                  setAstronaut2(prev => ({ ...prev, width: 88 + (Number(e.target.value) / 10) * 8.8, height: 132 + (Number(e.target.value) / 10) * 8.8 }));
                 }
               }}
               disabled={gameState === 'pushing' || gameState === 'finished'}
@@ -494,6 +466,34 @@ const SpacePush = () => {
               RESET
             </button>
           </div>
+        </div>
+      </div>
+
+      {/* Academic Hint Section - Below entire game */}
+      <div className="academic-hint-wrapper">
+        <div className="academic-hint-container">
+          <button
+            className={`hint-tab ${showHint ? 'active' : ''}`}
+            onClick={() => setShowHint(!showHint)}
+          >
+            ACADEMIC HINT
+          </button>
+          {showHint && (
+            <div className="hint-content">
+              <h3 className="pixel-subtitle">Scientific Concepts</h3>
+              <div className="hint-section">
+                <h4>🚀 F=ma </h4>
+                <p><strong>The Key Concept:</strong> Force is Determined by Mass and Acceleration.</p>
+                <p><strong>What This Means:</strong> Higher Mass and Acceleration results in Bigger Force.</p>
+                <p><strong>In This Simulation:</strong> You control each astronaut's acceleration and mass directly.</p>
+              </div>
+              <div className="hint-section">
+                <h4>🌌 Zero Gravity Motion</h4>
+                <p><strong>Constant Velocity:</strong> After the initial push, there's no friction or gravity to slow them down.</p>
+                <p><strong>Newton's First Law:</strong> Objects in motion stay in motion with constant velocity unless acted upon by an external force.</p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
