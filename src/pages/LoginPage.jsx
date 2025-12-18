@@ -10,7 +10,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
@@ -19,10 +19,13 @@ const LoginPage = () => {
       return;
     }
 
-    if (login(username, password)) {
+    try {
+      await login(username, password);
+      // If successful (no error thrown), navigate
       navigate('/');
-    } else {
-      setError('Login failed. Please try again.');
+    } catch (err) {
+      console.error('Login error:', err);
+      setError(err.message || 'Login failed. Please check your credentials.');
     }
   };
 
