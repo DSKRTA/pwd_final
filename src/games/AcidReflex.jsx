@@ -72,8 +72,8 @@ const AcidReflex = () => {
         const createParticle = (type) => ({
             id: Math.random(),
             type, // 'acid' or 'base'
-            top: Math.random() * 80 + 10 + '%',
-            left: Math.random() * 80 + 10 + '%',
+            top: Math.random() * 70 + 15 + '%',
+            left: Math.random() * 70 + 15 + '%',
             animationDuration: moving ? (speed === 'fast' ? Math.random() * 2 + 1 + 's' : Math.random() * 5 + 5 + 's') : '0s',
             animationDelay: Math.random() * -5 + 's',
             moveX: (Math.random() - 0.5) * 100 + 'px',

@@ -113,7 +113,6 @@ const HomePage = () => {
         <div className="nav-actions">
           {user ? (
             <div className="user-info">
-              <span className="pixel-text">Welcome, {user.username}!</span>
               <button className="pixel-button pixel-button-secondary" onClick={handleLogout}>
                 LOG OUT
               </button>

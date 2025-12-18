@@ -331,36 +331,56 @@ const AARecipe = () => {
         }
     };
 
+    // State for saved proteins
+    const [savedProteins, setSavedProteins] = useState([]);
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+
+    // Fetch saved proteins
+    const fetchProteins = async () => {
+        if (!user || !user.username) return;
+        try {
+            const res = await fetch(`${API_URL}/api/proteins/${user.username}`);
+            const data = await res.json();
+            if (data.proteins) {
+                setSavedProteins(data.proteins);
+            }
+        } catch (err) {
+            console.error('Failed to fetch proteins:', err);
+        }
+    };
+
+    useEffect(() => {
+        fetchProteins();
+    }, [user]);
+
     // Capture screenshot and save
     const handleFinish = async () => {
         if (!rendererRef.current || !user) return;
 
         // Generate protein name
-        const count = parseInt(localStorage.getItem(`proteinCount_${user.username}`) || '0');
-        const newCount = count + 1;
-        const name = `Protein${newCount}`;
+        const count = savedProteins.length + 1;
+        const name = `Protein ${count}`;
         setProteinName(name);
-        localStorage.setItem(`proteinCount_${user.username}`, newCount.toString());
 
         // Capture screenshot
         const screenshot = rendererRef.current.domElement.toDataURL('image/png');
 
-        // TODO: Save to backend
-        console.log('Saving protein:', {
-            name,
-            screenshot: screenshot.substring(0, 50) + '...',
-            structure: aminoAcids,
-        });
-
-        // For now, save to localStorage
-        const proteins = JSON.parse(localStorage.getItem(`proteins_${user.username}`) || '[]');
-        proteins.push({
-            name,
-            screenshot,
-            structure: aminoAcids,
-            createdAt: new Date().toISOString(),
-        });
-        localStorage.setItem(`proteins_${user.username}`, JSON.stringify(proteins));
+        try {
+            await fetch(`${API_URL}/api/proteins`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    userId: user.username,
+                    name,
+                    screenshot,
+                    structure: aminoAcids
+                })
+            });
+            // Refresh list
+            fetchProteins();
+        } catch (err) {
+            console.error('Failed to save protein:', err);
+        }
 
         setGameState('finished');
     };
@@ -425,120 +445,136 @@ const AARecipe = () => {
                     )}
                 </div>
 
-                <div className="controls-panel pixel-panel">
-                    <h2 className="pixel-subtitle">CONTROLS</h2>
+                <div className="right-column">
+                    <div className="controls-panel pixel-panel">
+                        <h2 className="pixel-subtitle">CONTROLS</h2>
 
-                    {gameState === 'building' && (
-                        <>
-                            <div className="control-section">
-                                <h3 className="pixel-label">SELECT AMINO ACID</h3>
-                                <div className="color-palette">
-                                    {colors.map((color, index) => (
-                                        <button
-                                            key={index}
-                                            className={`color-button ${selectedColor === index ? 'selected' : ''}`}
-                                            style={{ backgroundColor: color }}
-                                            onClick={() => setSelectedColor(index)}
-                                        />
-                                    ))}
-                                </div>
-                            </div>
-
-                            <div className="control-section">
-                                <button className="pixel-button" onClick={handleAddAminoAcid}>
-                                    ADD AMINO ACID
-                                </button>
-                                <p className="pixel-text">Chain Length: {aminoAcids.length}</p>
-                            </div>
-
-                            {aminoAcids.length >= 3 && (
+                        {gameState === 'building' && (
+                            <>
                                 <div className="control-section">
-                                    <button className="pixel-button pixel-button-primary" onClick={handleStartBending}>
-                                        START BENDING
+                                    <h3 className="pixel-label">SELECT AMINO ACID</h3>
+                                    <div className="color-palette">
+                                        {colors.map((color, index) => (
+                                            <button
+                                                key={index}
+                                                className={`color-button ${selectedColor === index ? 'selected' : ''}`}
+                                                style={{ backgroundColor: color }}
+                                                onClick={() => setSelectedColor(index)}
+                                            />
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="control-section">
+                                    <button className="pixel-button" onClick={handleAddAminoAcid}>
+                                        ADD AMINO ACID
+                                    </button>
+                                    <p className="pixel-text">Chain Length: {aminoAcids.length}</p>
+                                </div>
+
+                                {aminoAcids.length >= 3 && (
+                                    <div className="control-section">
+                                        <button className="pixel-button pixel-button-primary" onClick={handleStartBending}>
+                                            START BENDING
+                                        </button>
+                                    </div>
+                                )}
+                            </>
+                        )}
+
+                        {gameState === 'bending' && (
+                            <>
+                                <div className="control-section">
+                                    <h3 className="pixel-label">SELECT BOND</h3>
+                                    <p className="pixel-text" style={{ fontSize: '0.9rem' }}>
+                                        {selectedBondIndex !== null
+                                            ? `Bond ${selectedBondIndex + 1} selected (yellow)`
+                                            : 'Click a bond to select'}
+                                    </p>
+                                </div>
+
+                                <div className="control-section">
+                                    <h3 className="pixel-label">ROTATE X-AXIS</h3>
+                                    <div className="bend-buttons">
+                                        <button className="pixel-button bend-btn" onClick={() => handleBend('X', 30)}>
+                                            X +30°
+                                        </button>
+                                        <button className="pixel-button bend-btn" onClick={() => handleBend('X', -30)}>
+                                            X -30°
+                                        </button>
+                                        <button className="pixel-button bend-btn" onClick={() => handleBend('X', 45)}>
+                                            X +45°
+                                        </button>
+                                        <button className="pixel-button bend-btn" onClick={() => handleBend('X', -45)}>
+                                            X -45°
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div className="control-section">
+                                    <h3 className="pixel-label">ROTATE Y-AXIS</h3>
+                                    <div className="bend-buttons">
+                                        <button className="pixel-button bend-btn" onClick={() => handleBend('Y', 30)}>
+                                            Y +30°
+                                        </button>
+                                        <button className="pixel-button bend-btn" onClick={() => handleBend('Y', -30)}>
+                                            Y -30°
+                                        </button>
+                                        <button className="pixel-button bend-btn" onClick={() => handleBend('Y', 45)}>
+                                            Y +45°
+                                        </button>
+                                        <button className="pixel-button bend-btn" onClick={() => handleBend('Y', -45)}>
+                                            Y -45°
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div className="control-section">
+                                    <h3 className="pixel-label">ROTATE Z-AXIS</h3>
+                                    <div className="bend-buttons">
+                                        <button className="pixel-button bend-btn" onClick={() => handleBend('Z', 30)}>
+                                            Z +30°
+                                        </button>
+                                        <button className="pixel-button bend-btn" onClick={() => handleBend('Z', -30)}>
+                                            Z -30°
+                                        </button>
+                                        <button className="pixel-button bend-btn" onClick={() => handleBend('Z', 45)}>
+                                            Z +45°
+                                        </button>
+                                        <button className="pixel-button bend-btn" onClick={() => handleBend('Z', -45)}>
+                                            Z -45°
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div className="control-section">
+                                    <button
+                                        className="pixel-button pixel-button-secondary"
+                                        onClick={handleUndo}
+                                        disabled={bendHistory.length <= 1}
+                                    >
+                                        UNDO
+                                    </button>
+                                    <button className="pixel-button pixel-button-primary" onClick={handleFinish}>
+                                        FINISH
                                     </button>
                                 </div>
-                            )}
-                        </>
-                    )}
+                            </>
+                        )}
+                    </div>
 
-                    {gameState === 'bending' && (
-                        <>
-                            <div className="control-section">
-                                <h3 className="pixel-label">SELECT BOND</h3>
-                                <p className="pixel-text" style={{ fontSize: '0.9rem' }}>
-                                    {selectedBondIndex !== null
-                                        ? `Bond ${selectedBondIndex + 1} selected (yellow)`
-                                        : 'Click a bond to select'}
-                                </p>
+                    {gameState === 'building' && savedProteins.length > 0 && (
+                        <div className="archive-panel pixel-panel">
+                            <h2 className="pixel-subtitle">ARCHIVE</h2>
+                            <div className="protein-grid">
+                                {savedProteins.map((protein) => (
+                                    <div key={protein.id} className="protein-card">
+                                        <img src={protein.screenshot} alt={protein.name} className="protein-thumb" />
+                                        <p className="pixel-text small">{protein.name}</p>
+                                    </div>
+                                ))}
                             </div>
-
-                            <div className="control-section">
-                                <h3 className="pixel-label">ROTATE X-AXIS</h3>
-                                <div className="bend-buttons">
-                                    <button className="pixel-button bend-btn" onClick={() => handleBend('X', 30)}>
-                                        X +30°
-                                    </button>
-                                    <button className="pixel-button bend-btn" onClick={() => handleBend('X', -30)}>
-                                        X -30°
-                                    </button>
-                                    <button className="pixel-button bend-btn" onClick={() => handleBend('X', 45)}>
-                                        X +45°
-                                    </button>
-                                    <button className="pixel-button bend-btn" onClick={() => handleBend('X', -45)}>
-                                        X -45°
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div className="control-section">
-                                <h3 className="pixel-label">ROTATE Y-AXIS</h3>
-                                <div className="bend-buttons">
-                                    <button className="pixel-button bend-btn" onClick={() => handleBend('Y', 30)}>
-                                        Y +30°
-                                    </button>
-                                    <button className="pixel-button bend-btn" onClick={() => handleBend('Y', -30)}>
-                                        Y -30°
-                                    </button>
-                                    <button className="pixel-button bend-btn" onClick={() => handleBend('Y', 45)}>
-                                        Y +45°
-                                    </button>
-                                    <button className="pixel-button bend-btn" onClick={() => handleBend('Y', -45)}>
-                                        Y -45°
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div className="control-section">
-                                <h3 className="pixel-label">ROTATE Z-AXIS</h3>
-                                <div className="bend-buttons">
-                                    <button className="pixel-button bend-btn" onClick={() => handleBend('Z', 30)}>
-                                        Z +30°
-                                    </button>
-                                    <button className="pixel-button bend-btn" onClick={() => handleBend('Z', -30)}>
-                                        Z -30°
-                                    </button>
-                                    <button className="pixel-button bend-btn" onClick={() => handleBend('Z', 45)}>
-                                        Z +45°
-                                    </button>
-                                    <button className="pixel-button bend-btn" onClick={() => handleBend('Z', -45)}>
-                                        Z -45°
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div className="control-section">
-                                <button
-                                    className="pixel-button pixel-button-secondary"
-                                    onClick={handleUndo}
-                                    disabled={bendHistory.length <= 1}
-                                >
-                                    UNDO
-                                </button>
-                                <button className="pixel-button pixel-button-primary" onClick={handleFinish}>
-                                    FINISH
-                                </button>
-                            </div>
-                        </>
+                        </div>
                     )}
                 </div>
             </div>

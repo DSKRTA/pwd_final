@@ -347,3 +347,72 @@
         grid-template-columns: repeat(3, 1fr);
     }
 }
+
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 380px;
+}
+
+.archive-panel {
+    padding: 2.5rem 2rem;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.archive-panel .pixel-subtitle {
+    color: #45B7D1;
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+    margin-top: 0;
+}
+
+.protein-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.protein-card {
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid #45B7D1;
+    border-radius: 8px;
+    padding: 0.8rem;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.protein-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(69, 183, 209, 0.3);
+}
+
+.protein-thumb {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.protein-card .pixel-text.small {
+    font-size: 0.7rem;
+    color: #45B7D1;
+    margin: 0;
+}
+
+/* Update scrollbar for archive panel too */
+.archive-panel::-webkit-scrollbar {
+    width: 8px;
+}
+
+.archive-panel::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.archive-panel::-webkit-scrollbar-thumb {
+    background: #45B7D1;
+    border-radius: 4px;
+}
