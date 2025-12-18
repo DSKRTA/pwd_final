@@ -1,0 +1,51 @@
+.signup-page {
+    min-height: 100vh;
+    background-color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.signup-container {
+    max-width: 500px;
+    width: 100%;
+    padding: 40px;
+}
+
+.signup-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 48px;
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.form-actions .pixel-button {
+    flex: 1;
+}
+
+.error-message {
+    color: #ff6b35;
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(255, 107, 53, 0.1);
+    border: 2px solid #ff6b35;
+}

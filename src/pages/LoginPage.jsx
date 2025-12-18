@@ -71,6 +71,9 @@ const LoginPage = () => {
               BACK
             </button>
           </div>
+          <div className="login-note">
+            New here? <button type="button" className="pixel-link" onClick={() => navigate('/register')}>Create Account</button>
+          </div>
         </form>
       </div>
     </div>
