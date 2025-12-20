@@ -12,15 +12,15 @@ export const useScore = () => {
 };
 
 export const ScoreProvider = ({ children }) => {
-  const { user } = useAuth();
+  const { user, username } = useAuth();
   const [scores, setScores] = useState({});
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
   useEffect(() => {
     // Load scores from Backend (specifically Acid Reflex for now)
-    if (user && user.username) {
+    if (username) {
       // Fetch Acid Reflex Score
-      fetch(`${API_URL}/api/scores/acid-reflex/${user.username}`)
+      fetch(`${API_URL}/api/scores/acid-reflex/${username}`)
         .then(res => res.json())
         .then(data => {
           if (data && data.score) {
@@ -60,7 +60,7 @@ export const ScoreProvider = ({ children }) => {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            userId: user.username,
+            userId: username,
             gameId,
             score,
             metric

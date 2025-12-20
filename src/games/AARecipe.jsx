@@ -7,7 +7,7 @@ import './AARecipe.css';
 
 const AARecipe = () => {
     const navigate = useNavigate();
-    const { user } = useAuth();
+    const { user, username } = useAuth();
     const canvasRef = useRef(null);
     const sceneRef = useRef(null);
     const cameraRef = useRef(null);
@@ -337,9 +337,9 @@ const AARecipe = () => {
 
     // Fetch saved proteins
     const fetchProteins = async () => {
-        if (!user || !user.username) return;
+        if (!username) return;
         try {
-            const res = await fetch(`${API_URL}/api/proteins/${user.username}`);
+            const res = await fetch(`${API_URL}/api/proteins/${username}`);
             const data = await res.json();
             if (data.proteins) {
                 setSavedProteins(data.proteins);
@@ -370,7 +370,7 @@ const AARecipe = () => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    userId: user.username,
+                    userId: username,
                     name,
                     screenshot,
                     structure: aminoAcids

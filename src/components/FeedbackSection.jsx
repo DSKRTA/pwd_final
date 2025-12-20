@@ -12,6 +12,11 @@ const FeedbackSection = ({ showFeedback, setShowFeedback }) => {
     if (feedback.trim()) {
       try {
         const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+        console.log('🚀 Submitting feedback...', {
+          url: `${API_URL}/api/feedback`,
+          data: { name, email, feedback: feedback.trim() }
+        });
+
         const response = await fetch(`${API_URL}/api/feedback`, {
           method: 'POST',
           headers: {

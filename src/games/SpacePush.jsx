@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { useScore } from '../contexts/ScoreContext';
 import './SpacePush.css';
 
 const SpacePush = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { updateScore, getScore } = useScore();
   const canvasRef = useRef(null);
   const animationFrameRef = useRef(null);
   const sprite1Ref = useRef(null);
@@ -27,7 +25,6 @@ const SpacePush = () => {
   const [mass2, setMass2] = useState(50); // kg
   const [acceleration1, setAcceleration1] = useState(5); // m/s² for astronaut 1
   const [acceleration2, setAcceleration2] = useState(5); // m/s² for astronaut 2
-  const [score, setScore] = useState(0);
   const [gameState, setGameState] = useState('ready'); // ready, pushing, finished
   // Astronauts start at opposite ends - left and right edges
   // Calculate initial sizes based on mass (both start at 50kg by default)
@@ -40,8 +37,6 @@ const SpacePush = () => {
   const [distance1, setDistance1] = useState(0);
   const [distance2, setDistance2] = useState(0);
   const [time, setTime] = useState(0);
-
-  const highScore = user ? getScore('space-push', 'score') : null;
 
   // Load sprites and background
   useEffect(() => {
@@ -302,17 +297,6 @@ const SpacePush = () => {
             else if (stopped1 || stopped2) {
               console.log('GAME FINISHED - boundary hit');
               setGameState('finished');
-              if (user) {
-                const expectedRatio = mass2 / mass1;
-                const actualRatio = dist1 > 0 && dist2 > 0 ? dist1 / dist2 : 1;
-                const accuracy = Math.max(0, 100 - Math.abs(expectedRatio - actualRatio) * 20);
-                const pointsEarned = Math.round(accuracy);
-                setScore(currentScore => {
-                  const newScore = currentScore + pointsEarned;
-                  updateScore('space-push', newScore, 'score');
-                  return newScore;
-                });
-              }
             } else {
               // Continue moving together
               animationFrameRef.current = requestAnimationFrame(animate);
