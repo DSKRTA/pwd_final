@@ -362,7 +362,7 @@
 }
 
 .archive-panel .pixel-subtitle {
-    color: #45B7D1;
+    color: #a78bfa;
     margin-bottom: 2rem;
     font-size: 1.2rem;
     margin-top: 0;
@@ -376,7 +376,7 @@
 
 .protein-card {
     background: rgba(0, 0, 0, 0.3);
-    border: 2px solid #45B7D1;
+    border: 2px solid #a78bfa;
     border-radius: 8px;
     padding: 0.8rem;
     text-align: center;
@@ -413,6 +413,6 @@
 }
 
 .archive-panel::-webkit-scrollbar-thumb {
-    background: #45B7D1;
+    background: #a78bfa;
     border-radius: 4px;
 }
